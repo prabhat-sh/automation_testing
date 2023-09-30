@@ -1,0 +1,19 @@
+name: Deploy
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+jobs:
+  deploy:
+    runs-on: self-hosted
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Magicking 😀
+        shell: bash
+        run: |
+          cd ~
+          sudo chown -R progit:progit /var/www/html/automation_testing
+          cd /var/www/html/automation_testing
+          sudo git stash
+          ./run.sh
